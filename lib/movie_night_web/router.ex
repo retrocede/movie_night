@@ -13,14 +13,15 @@ defmodule MovieNightWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", MovieNightWeb do
+    pipe_through :api
+    
+    resources "/test", TestEndpointController
+  end
+
   scope "/", MovieNightWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", MovieNightWeb do
-  #   pipe_through :api
-  # end
 end
