@@ -9,11 +9,31 @@ import css from "../css/app.css"
 //
 // Import dependencies
 //
-import "phoenix_html"
+import "phoenix_html";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import RootComponent from './root';
+import AppRoutes from './app/routes';
 
-// Import local files
 //
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+// Boot up global utils
+//
+require('./app/boot');
 
-// import socket from "./socket"
+//
+// Create router
+//
+const router = new VueRouter({
+    mode: 'history',
+    routes: AppRoutes.routes,
+});
+
+
+//
+// Create root vue instance
+//
+new Vue({
+    el: '#app',
+    render: h => h(RootComponent),
+    router,
+});
