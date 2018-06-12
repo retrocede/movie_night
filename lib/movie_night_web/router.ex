@@ -17,6 +17,7 @@ defmodule MovieNightWeb.Router do
     pipe_through :api
     
     resources "/test", TestEndpointController
+    resources "/search", SearchEndpointController
   end
 
   scope "/", MovieNightWeb do
