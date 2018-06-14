@@ -5,18 +5,10 @@ import PageNotFoundComponent from '../pages/404/404';
 export default {
     routes: [
         //
-        // Default redirect
-        //
-        {
-            path: '/',
-            redirect: '/home'
-        },
-
-        //
         // Home
         //
         {
-            path: '/home',
+            path: '/',
             name: 'home',
             component: HomeComponent,
             meta: {
