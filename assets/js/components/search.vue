@@ -52,8 +52,11 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            isLoading: false,
             query: '',
             results: [],
+            pages: 1,
+            currentPage: 1,
         };
     },
     methods: {
@@ -61,12 +64,15 @@ export default {
             console.log('need to fire off search for: ', this.query);
             axios.get(`/api/search`, {
                 params: {
-                    query: encodeURIComponent(this.query)
+                    query: encodeURIComponent(this.query),
+                    page: this.currentPage,
                 }
             })
             .then((response) => {
                 console.log('search results: ', response.data);
-                this.results = response.data;
+                this.results = response.data.results;
+                this.pages = response.data.pages;
+                this.currentPage = response.data.page;
             })
             .catch((error) => {
                 console.log('error: ', error);
