@@ -10,7 +10,6 @@
 <template>
     <div class="homepage">
         <v-carousel></v-carousel>
-        <v-button>Random</v-button>
         <v-search></v-search>
     </div>
 </template>

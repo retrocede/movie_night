@@ -12,6 +12,7 @@
                 {{ movie.title }}
             </div>
         </div>
+        <v-button @click="random">random</v-button>
     </div>
 </template>
 
@@ -42,6 +43,13 @@ export default {
                 console.log('error: ', error);
             });
         },
+        random() {
+            let max = this.movies.length - 1;
+            let min = 0;
+            let filmIndex = Math.floor( Math.random() * (max - min + 1)) + min;
+
+            alert(`Watch: ${this.movies[filmIndex].title}`);
+        }
     },
 }
 </script>
