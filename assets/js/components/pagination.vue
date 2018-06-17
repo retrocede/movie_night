@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         prevPage() {
-            this.$emit('pevious');
+            this.$emit('previous');
         },
 
         nextPage() {
