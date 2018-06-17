@@ -34,6 +34,9 @@
                 <i class="material-icons">search</i>
             </v-button>
         </div>
+
+        <v-spinner v-if="isLoading" />
+
         <div class="results" v-if="results.length">
             <div class="result" v-for="result in results" :key="result.id">
                 {{ result.title }}
@@ -46,7 +49,6 @@
 </template>
 
 <script>
-// TODO: should extract this logic to a repository
 import axios from 'axios';
 
 export default {
@@ -61,7 +63,8 @@ export default {
     },
     methods: {
         search() {
-            console.log('need to fire off search for: ', this.query);
+            this.results = [];
+            this.isLoading = true;
             axios.get(`/api/search`, {
                 params: {
                     query: encodeURIComponent(this.query),
@@ -73,9 +76,11 @@ export default {
                 this.results = response.data.results;
                 this.pages = response.data.pages;
                 this.currentPage = response.data.page;
+                this.isLoading = false;
             })
             .catch((error) => {
                 console.log('error: ', error);
+                this.isLoading = false;
             });
         },
     },
