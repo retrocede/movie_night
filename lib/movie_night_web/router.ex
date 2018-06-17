@@ -18,6 +18,7 @@ defmodule MovieNightWeb.Router do
     
     resources "/test", TestEndpointController
     resources "/search", SearchEndpointController
+    resources "/movies", MovieEndpointController
   end
 
   scope "/", MovieNightWeb do

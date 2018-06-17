@@ -14,6 +14,12 @@
         padding: 10px;
         margin: 12px 10px;
 
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .description {
             font-family: 'Roboto';
         }
@@ -45,7 +51,10 @@
                 @previous="previous"
                 @next="next"/>
             <div class="result" v-for="result in results" :key="result.id">
-                {{ result.title }}
+                <div class="result-header">
+                    {{ result.title }}
+                    <v-button @click="addMovie(result.id)"> + </v-button>
+                </div>
                 <p class="description">
                     {{ result.overview }}
                 </p>
@@ -102,6 +111,18 @@ export default {
         next() {
             this.currentPage++;
             this.search();
+        },
+        addMovie(id) {
+            console.log('add movie: ', id);
+            axios.post('/api/movies', {
+                id
+            })
+            .then((response) => {
+                console.log('response: ', response.data);
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
         },
     },
 }
