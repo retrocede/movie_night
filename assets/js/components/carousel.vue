@@ -4,8 +4,14 @@
 
 <template>
     <div class="carousel">
-        watchlist goes here
-        <p> {{ movies }} </p>
+        <div class="loading" v-if="this.isLoading">
+            <v-spinner />
+        </div>
+        <div class="watchlist" v-else>
+            <div class="movie" v-for="movie in movies" :key="movie.api_id">
+                {{ movie.title }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,15 +25,18 @@ export default {
 
     data() {
         return {
+            isLoading: false,
             movies: [],
         };
     },
 
     methods: {
         fetchMovies() {
+            this.isLoading = true;
             axios.get('/api/movies')
             .then((response) => {
-                console.log('response: ', response.data);
+                this.movies = response.data.data; // this is silly, should probably fix it
+                this.isLoading = false;
             })
             .catch((error) => {
                 console.log('error: ', error);
