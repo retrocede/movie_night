@@ -38,12 +38,24 @@
         <v-spinner v-if="isLoading" />
 
         <div class="results" v-if="results.length">
+            <v-pagination 
+                v-if="pages > 1"
+                :currentPage="currentPage"
+                :pages="pages"
+                @previous="previous"
+                @next="next"/>
             <div class="result" v-for="result in results" :key="result.id">
                 {{ result.title }}
                 <p class="description">
                     {{ result.overview }}
                 </p>
             </div>
+            <v-pagination 
+                v-if="pages > 1"
+                :currentPage="currentPage"
+                :pages="pages"
+                @previous="previous"
+                @next="next"/>
         </div>
     </div>
 </template>
@@ -82,6 +94,14 @@ export default {
                 console.log('error: ', error);
                 this.isLoading = false;
             });
+        },
+        previous() {
+            this.currentPage--;
+            this.search();
+        },
+        next() {
+            this.currentPage++;
+            this.search();
         },
     },
 }

@@ -1,6 +1,7 @@
 import buttonComponent from './button';
-import searchComponent from './search';
 import carouselComponent from './carousel';
+import paginationComponent from './pagination';
+import searchComponent from './search';
 import spinnerComponent from './spinner';
 
 //
@@ -8,7 +9,8 @@ import spinnerComponent from './spinner';
 //
 export default {
     'v-button': buttonComponent,
-    'v-search': searchComponent,
     'v-carousel': carouselComponent,
+    'v-pagination': paginationComponent,
+    'v-search': searchComponent,
     'v-spinner': spinnerComponent,
 }

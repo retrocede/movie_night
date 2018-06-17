@@ -32,7 +32,7 @@
     <header class="header">
         <div class="logo">
             <router-link class="logo-text" :to="{ name: 'home' }">
-                <span class="bold">Movie</span> Night
+                <span class="bold">Movie</span> Knight
             </router-link>
         </div>
     </header>
