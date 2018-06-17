@@ -3,14 +3,18 @@
 </style>
 
 <template>
-    <button>
+    <button @click="clicked">
         <slot></slot>
     </button>
 </template>
 
 <script>
 export default {
-    
+    methods: {
+        clicked() {
+            this.$emit('click');
+        },
+    },
 }
 </script>
 

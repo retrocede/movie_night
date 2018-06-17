@@ -5,11 +5,17 @@
     border-bottom: 1px solid gray;
 }
 .logo {
+    font-family: 'Roboto';
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
     width: 100%;
+    a,
+    a:visited { 
+        text-decoration: none;
+        color: #2D2C2C;
+    }
 }
 
 .logo-text {

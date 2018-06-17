@@ -3,6 +3,20 @@
         color: red;
         border: 2px solid blue;
     }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+</style>
+
+<style>
+    .v-root {
+        font-family: 'Oswald';
+        color: #2D2C2C;
+    }
 </style>
 
 <template>
@@ -10,7 +24,9 @@
         <v-header />
         <div class="content">
             <div class="v-router">
-                <router-view></router-view>
+                <transition name="fade">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
     </div>
