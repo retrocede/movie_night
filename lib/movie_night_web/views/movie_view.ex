@@ -21,6 +21,7 @@ defmodule MovieNightWeb.MovieView do
       runtime: movie.runtime,
       tagline: movie.tagline,
       title: movie.title,
-      trailer: movie.trailer}
+      trailer: movie.trailer,
+      status: movie.status}
   end
 end

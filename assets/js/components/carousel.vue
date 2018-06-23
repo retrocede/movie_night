@@ -1,5 +1,13 @@
 <style lang="scss" scoped>
+    .movie {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        .watched {
+            text-decoration: line-through;
+        }
+    }
 </style>
 
 <template>
@@ -9,7 +17,14 @@
         </div>
         <div class="watchlist" v-else>
             <div class="movie" v-for="movie in movies" :key="movie.api_id">
-                {{ movie.title }}
+                <v-button @click="removeMovie(movie)">X</v-button>
+                <div :class="{ watched: movie.status === 'watched'}">{{ movie.title }}</div>
+                <v-button v-if="movie.status === 'watched'" @click="updateMovieStatus(movie, 'unwatched')">
+                    <i class="material-icons">stop</i>
+                </v-button>
+                <v-button v-else @click="updateMovieStatus(movie, 'watched')">
+                    <i class="material-icons">play_arrow</i>
+                </v-button>
             </div>
         </div>
         <v-button @click="random">random</v-button>
@@ -49,7 +64,28 @@ export default {
             let filmIndex = Math.floor( Math.random() * (max - min + 1)) + min;
 
             alert(`Watch: ${this.movies[filmIndex].title}`);
-        }
+        },
+        removeMovie(movie) {
+            axios.delete(`/api/movies/${ movie.id }`)
+            .then((result) => {
+                this.fetchMovies();
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            });
+        },
+        updateMovieStatus(movie, status) {
+            movie.status = status;
+            axios.put(`/api/movies/${ movie.id }`, {
+                movie
+            })
+            .then((response) => {
+                this.fetchMovies();
+            })
+            .catch((error) => {
+                console.log('error: ', error);
+            })
+        },
     },
 }
 </script>

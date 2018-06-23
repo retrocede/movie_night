@@ -14,6 +14,7 @@ defmodule MovieNight.Movies.Movie do
     field :tagline, :string, default: ""
     field :title, :string, default: ""
     field :trailer, :string, default: ""
+    field :status, :string, default: ""
 
     timestamps()
   end
@@ -21,7 +22,7 @@ defmodule MovieNight.Movies.Movie do
   @doc false
   def changeset(movie, attrs) do
     movie
-    |> cast(attrs, [:backdrop, :homepage, :api_id, :imdb_id, :overview, :poster, :runtime, :tagline, :title, :trailer])
+    |> cast(attrs, [:backdrop, :homepage, :api_id, :imdb_id, :overview, :poster, :runtime, :tagline, :title, :trailer, :status])
     |> validate_required([:api_id, :overview, :title ])
   end
 end
