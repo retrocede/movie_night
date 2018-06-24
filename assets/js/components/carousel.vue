@@ -59,11 +59,12 @@ export default {
             });
         },
         random() {
-            let max = this.movies.length - 1;
+            let unwatched = this.movies.filter((film) => film.status !== 'watched');
+            let max = unwatched.length - 1;
             let min = 0;
             let filmIndex = Math.floor( Math.random() * (max - min + 1)) + min;
 
-            alert(`Watch: ${this.movies[filmIndex].title}`);
+            alert(`Watch: ${unwatched[filmIndex].title}`);
         },
         removeMovie(movie) {
             axios.delete(`/api/movies/${ movie.id }`)
