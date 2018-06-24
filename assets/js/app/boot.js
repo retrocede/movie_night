@@ -5,6 +5,7 @@ import components from '../components/global';
 // Plugins
 //
 require('./plugins/router');
+require('./plugins/vuex');
 
 //
 // Register global components
@@ -12,3 +13,8 @@ require('./plugins/router');
 Object.keys(components).forEach((name) => {
     Vue.component(name, components[name]);
 });
+
+//
+// Config
+//
+Vue.config.productionTip = false;
