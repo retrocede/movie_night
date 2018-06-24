@@ -31,7 +31,7 @@ defmodule MovieNightWeb.MovieController do
     %{ "backdrop_path" => backdrop_path, "poster_path" => poster_path } = api_response
     %{ "videos" => %{"results" => videos }} = api_response
     [ %{ "key" => trailer } | _ ] = Enum.sort(Enum.filter(videos, fn(video) -> video["type"] == "Trailer" and video["site"] == "YouTube" end), &(&1["size"] >= &2["size"]))
-    new_vals = %{ "backdrop" => "https://image.tmdb.org/t/p/w500#{ backdrop_path }", "poster" => "https://image.tmdb.org/t/p/w500#{ poster_path }", "trailer" => "https://www.youtube.com/watch?v=#{ trailer }" }
+    new_vals = %{ "backdrop" => "https://image.tmdb.org/t/p/w500#{ backdrop_path }", "poster" => "https://image.tmdb.org/t/p/w154#{ poster_path }", "trailer" => "https://www.youtube.com/watch?v=#{ trailer }" }
     Map.merge api_response, new_vals
   end
 

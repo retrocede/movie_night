@@ -8,6 +8,12 @@
             text-decoration: line-through;
         }
     }
+
+    .poster-carousel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
 <template>
@@ -28,6 +34,14 @@
             </div>
         </div>
         <v-button @click="random">random</v-button>
+        <div class="poster-carousel">
+            <v-movie-card
+                v-for="movie in movies"
+                :key="movie.id"
+                :name="movie.title"
+                :status="movie.status"
+                :poster='movie.poster' />
+        </div>
     </div>
 </template>
 
