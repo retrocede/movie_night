@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :movie_night, MovieNightWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "https://glacial-earth-44348.herokuapp.com", port: 443],
+  url: [host: "https://knight.movie", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
