@@ -24,6 +24,7 @@
     .movie-card {
         padding: 0px;
         width: 154px;
+        min-width: 154px;
         height: 231px;
         margin: 12px 10px;
 

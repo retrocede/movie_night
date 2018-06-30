@@ -7,22 +7,17 @@
         align-items: center;
     }
 
-    .result {
-        display: block;
-        border: 1px solid rgb(53, 61, 53);
-        border-radius: 3px;
-        padding: 10px;
-        margin: 12px 10px;
+    .results { 
+        min-height: 500px;
+    }
 
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .description {
-            font-family: 'Roboto';
-        }
+    .movies {
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 
@@ -42,7 +37,6 @@
             </v-button>
         </div>
 
-        <v-spinner v-if="isSearchLoading" />
 
         <div class="results" v-if="searchResults.length">
             <v-pagination 
@@ -51,14 +45,16 @@
                 :pages="resultsPages"
                 @previous="prevPage"
                 @next="nextPage"/>
-            <v-movie-card
-                v-for="movie in searchResults"
-                :key="movie.id"
-                :name="movie.title"
-                status="search"
-                :poster='`https://image.tmdb.org/t/p/w154${movie.poster_path}`'
-                :release='movie.release_date'
-                :search-result='true' />
+            <v-spinner v-if="isSearchLoading" />
+            <div class="movies" v-else>
+                <v-movie-card v-for="movie in searchResults"
+                    :key="movie.id"
+                    :name="movie.title"
+                    status="search"
+                    :poster='`https://image.tmdb.org/t/p/w154${movie.poster_path}`'
+                    :release='movie.release_date'
+                    :search-result='true' />
+            </div>
             <v-pagination 
                 v-if="resultsPages > 1"
                 :currentPage="resultsPage"
