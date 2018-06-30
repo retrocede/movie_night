@@ -21,27 +21,18 @@
         <div class="loading" v-if="isWatchlistLoading">
             <v-spinner />
         </div>
-        <div class="watchlist" v-else>
-            <div class="movie" v-for="movie in watchlist" :key="movie.api_id">
-                <v-button @click="removeMovie(movie)">X</v-button>
-                <div :class="{ watched: movie.status === 'watched'}">{{ movie.title }}</div>
-                <v-button v-if="movie.status === 'watched'" @click="updateMovieStatus(movie, 'unwatched')">
-                    <i class="material-icons">stop</i>
-                </v-button>
-                <v-button v-else @click="updateMovieStatus(movie, 'watched')">
-                    <i class="material-icons">play_arrow</i>
-                </v-button>
-            </div>
-        </div>
-        <v-button @click="random">random</v-button>
-        <div class="poster-carousel">
+        <div class="poster-carousel" v-else>
             <v-movie-card
                 v-for="movie in watchlist"
                 :key="movie.id"
                 :name="movie.title"
                 :status="movie.status"
-                :poster='movie.poster' />
+                :poster='movie.poster'
+                @watch="updateMovieStatus({movie, status: 'watched'})"
+                @unwatch="updateMovieStatus({movie, status: 'unwatched'})"
+                @remove="removeMovie(movie)"/>
         </div>
+        <v-button @click="random">random</v-button>
     </div>
 </template>
 
@@ -63,38 +54,28 @@ export default {
 
     methods: {
         ...mapActions('movies', [
-            'fetchWatchlist'
+            'fetchWatchlist',
+            'updateMovieStatus',
+            'removeMovie',
         ]),
 
         random() {
-            let unwatched = this.movies.filter((film) => film.status !== 'watched');
+            let unwatched = this.watchlist.filter((film) => film.status !== 'watched');
             let max = unwatched.length - 1;
             let min = 0;
             let filmIndex = Math.floor( Math.random() * (max - min + 1)) + min;
 
             alert(`Watch: ${unwatched[filmIndex].title}`);
         },
-        removeMovie(movie) {
-            axios.delete(`/api/movies/${ movie.id }`)
-            .then((result) => {
-                this.fetchMovies();
-            })
-            .catch((error) => {
-                console.log('error: ', error);
-            });
-        },
-        updateMovieStatus(movie, status) {
-            movie.status = status;
-            axios.put(`/api/movies/${ movie.id }`, {
-                movie
-            })
-            .then((response) => {
-                this.fetchMovies();
-            })
-            .catch((error) => {
-                console.log('error: ', error);
-            })
-        },
+        // removeMovie(movie) {
+        //     axios.delete(`/api/movies/${ movie.id }`)
+        //     .then((result) => {
+        //         this.fetchMovies();
+        //     })
+        //     .catch((error) => {
+        //         console.log('error: ', error);
+        //     });
+        // },
     },
 }
 </script>

@@ -120,13 +120,13 @@ export default {
     },
     methods: {
         watched() {
-            console.log(`update status for ${ this.name } to watched`);
+            this.$emit('watch');
         },
         unwatched() {
-            console.log(`update status for ${ this.name } to unwatched`);
+            this.$emit('unwatch');
         },
         removed() {
-            console.log(`remove ${ this.name } from the watchlist`);
+            this.$emit('remove');
         },
     },
 }
