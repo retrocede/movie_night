@@ -94,7 +94,7 @@
     <div class="movie-card" :style='`background-image: url("${ this.poster }")`'>
         <div class="overlay">
             <div class="info">
-                <div class="name">{{ name }}</div>
+                <div class="name">{{ name }} ({{ year }})</div>
             </div>
             <div class="controls">
                 <div class="watch" v-if="this.status !== 'watched'" @click="watched">
@@ -117,6 +117,12 @@ export default {
         poster: { type: String, required: true },
         name: { type: String, required: true },
         status: { type: String, required: true },
+        release: { type: String, default: '' },
+    },
+    computed: {
+        year() {
+            return this.release.split('-')[0];
+        }
     },
     methods: {
         watched() {

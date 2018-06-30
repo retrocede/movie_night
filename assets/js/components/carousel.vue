@@ -28,6 +28,7 @@
                 :name="movie.title"
                 :status="movie.status"
                 :poster='movie.poster'
+                :release='movie.release_date'
                 @watch="updateMovieStatus({movie, status: 'watched'})"
                 @unwatch="updateMovieStatus({movie, status: 'unwatched'})"
                 @remove="removeMovie(movie)"/>
