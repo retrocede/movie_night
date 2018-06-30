@@ -18,6 +18,7 @@ defmodule MovieNightWeb.MovieView do
       imdb_id: movie.imdb_id,
       overview: movie.overview,
       poster: movie.poster,
+      release_date: movie.release_date,
       runtime: movie.runtime,
       tagline: movie.tagline,
       title: movie.title,

@@ -10,6 +10,7 @@ defmodule MovieNight.Movies.Movie do
     field :imdb_id, :string, default: ""
     field :overview, :string, default: ""
     field :poster, :string, default: ""
+    field :release_date, :string, default: ""
     field :runtime, :integer, default: 0
     field :tagline, :string, default: ""
     field :title, :string, default: ""
@@ -22,7 +23,7 @@ defmodule MovieNight.Movies.Movie do
   @doc false
   def changeset(movie, attrs) do
     movie
-    |> cast(attrs, [:backdrop, :homepage, :api_id, :imdb_id, :overview, :poster, :runtime, :tagline, :title, :trailer, :status])
+    |> cast(attrs, [:backdrop, :homepage, :api_id, :imdb_id, :overview, :poster, :runtime, :tagline, :title, :trailer, :status, :release_date])
     |> validate_required([:api_id, :overview, :title ])
   end
 end
