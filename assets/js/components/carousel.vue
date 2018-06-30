@@ -18,11 +18,11 @@
 
 <template>
     <div class="carousel">
-        <div class="loading" v-if="this.isLoading">
+        <div class="loading" v-if="isWatchlistLoading">
             <v-spinner />
         </div>
         <div class="watchlist" v-else>
-            <div class="movie" v-for="movie in movies" :key="movie.api_id">
+            <div class="movie" v-for="movie in watchlist" :key="movie.api_id">
                 <v-button @click="removeMovie(movie)">X</v-button>
                 <div :class="{ watched: movie.status === 'watched'}">{{ movie.title }}</div>
                 <v-button v-if="movie.status === 'watched'" @click="updateMovieStatus(movie, 'unwatched')">
@@ -36,7 +36,7 @@
         <v-button @click="random">random</v-button>
         <div class="poster-carousel">
             <v-movie-card
-                v-for="movie in movies"
+                v-for="movie in watchlist"
                 :key="movie.id"
                 :name="movie.title"
                 :status="movie.status"
@@ -47,31 +47,25 @@
 
 <script>
 import axios from 'axios';
+import { mapState, mapActions } from 'vuex';
 
 export default {
     created() {
-        this.fetchMovies();
+        this.fetchWatchlist();
     },
 
-    data() {
-        return {
-            isLoading: false,
-            movies: [],
-        };
+    computed: {
+        ...mapState('movies', [
+            'watchlist',
+            'isWatchlistLoading',
+        ]),
     },
 
     methods: {
-        fetchMovies() {
-            this.isLoading = true;
-            axios.get('/api/movies')
-            .then((response) => {
-                this.movies = response.data.data; // this is silly, should probably fix it
-                this.isLoading = false;
-            })
-            .catch((error) => {
-                console.log('error: ', error);
-            });
-        },
+        ...mapActions('movies', [
+            'fetchWatchlist'
+        ]),
+
         random() {
             let unwatched = this.movies.filter((film) => film.status !== 'watched');
             let max = unwatched.length - 1;

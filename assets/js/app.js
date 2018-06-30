@@ -28,6 +28,11 @@ const router = new VueRouter({
     routes: AppRoutes.routes,
 });
 
+//
+// pull in vuex store
+//
+import store from './app/store';
+
 
 //
 // Create root vue instance
@@ -36,4 +41,5 @@ new Vue({
     el: '#app',
     render: h => h(RootComponent),
     router,
+    store,
 });

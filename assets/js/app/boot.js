@@ -5,7 +5,6 @@ import components from '../components/global';
 // Plugins
 //
 require('./plugins/router');
-require('./plugins/vuex');
 
 //
 // Register global components
