@@ -3,8 +3,28 @@ export default {
         state.watchlist = movies;
     },
 
+    setSearchResults(state, movies) {
+        state.searchResults = movies;
+    },
+
+    setSearchQuery(state, query) {
+        state.searchQuery = query;
+    },
+
+    setResultsPage(state, page) {
+        state.resultsPage = page;
+    },
+
+    setResultsPages(state, pages) {
+        state.resultsPages = pages;
+    },
+
     setIsWatchlistLoading(state, isLoading) {
         state.isWatchlistLoading = isLoading;
+    },
+
+    setIsSearchLoading(state, isLoading) {
+        state.isSearchLoading = isLoading;
     },
 
     setMovieStatus(state, { movie, status }) {

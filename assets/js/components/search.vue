@@ -33,24 +33,25 @@
                 type="text" 
                 class="search-input" 
                 placeholder="Movie Title Search"
-                v-model="query" 
-                @keyup.enter="search"
+                :value="searchQuery" 
+                @input="setSearchQuery($event.target.value)"
+                @keyup.enter="searchForMovie"
                 />
-            <v-button @click="search">
+            <v-button @click="searchForMovie">
                 <i class="material-icons">search</i>
             </v-button>
         </div>
 
-        <v-spinner v-if="isLoading" />
+        <v-spinner v-if="isSearchLoading" />
 
-        <div class="results" v-if="results.length">
+        <div class="results" v-if="searchResults.length">
             <v-pagination 
-                v-if="pages > 1"
-                :currentPage="currentPage"
-                :pages="pages"
-                @previous="previous"
-                @next="next"/>
-            <div class="result" v-for="result in results" :key="result.id">
+                v-if="resultsPages > 1"
+                :currentPage="resultsPage"
+                :pages="resultsPages"
+                @previous="prevPage"
+                @next="nextPage"/>
+            <div class="result" v-for="result in searchResults" :key="result.id">
                 <div class="result-header">
                     {{ result.title }}
                     <v-button @click="addMovie(result.id)"> + </v-button>
@@ -60,58 +61,40 @@
                 </p>
             </div>
             <v-pagination 
-                v-if="pages > 1"
-                :currentPage="currentPage"
-                :pages="pages"
-                @previous="previous"
-                @next="next"/>
+                v-if="resultsPages > 1"
+                :currentPage="resultsPage"
+                :pages="resultsPages"
+                @previous="prevPage"
+                @next="nextPage"/>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-    data() {
-        return {
-            isLoading: false,
-            query: '',
-            results: [],
-            pages: 1,
-            currentPage: 1,
-        };
+    computed: {
+        ...mapState('movies', [
+            'searchQuery',
+            'searchResults',
+            'resultsPage',
+            'resultsPages',
+            'isSearchLoading',
+        ]),
     },
     methods: {
-        search() {
-            this.results = [];
-            this.isLoading = true;
-            axios.get(`/api/search`, {
-                params: {
-                    query: encodeURIComponent(this.query),
-                    page: this.currentPage,
-                }
-            })
-            .then((response) => {
-                console.log('search results: ', response.data);
-                this.results = response.data.results;
-                this.pages = response.data.pages;
-                this.currentPage = response.data.page;
-                this.isLoading = false;
-            })
-            .catch((error) => {
-                console.log('error: ', error);
-                this.isLoading = false;
-            });
-        },
-        previous() {
-            this.currentPage--;
-            this.search();
-        },
-        next() {
-            this.currentPage++;
-            this.search();
-        },
+        ...mapActions('movies', [
+            'searchForMovie',
+            'nextPage',
+            'prevPage',
+        ]),
+
+        ...mapMutations('movies', [
+            'setSearchQuery'
+        ]),
+
         addMovie(id) {
             console.log('add movie: ', id);
             axios.post('/api/movies', {

@@ -3,6 +3,7 @@ import {
     updateMovieStatus,
     removeMovie,
 } from '../../../repositories/watchlist';
+import { searchForMovie } from '../../../repositories/search';
 
 export default {
     fetchWatchlist({ commit }) {
@@ -52,5 +53,52 @@ export default {
         });
 
         return request;
-    }
+    },
+
+    searchForMovie({ commit, state }) {
+        commit('setIsSearchLoading', true);
+
+        var page = state.resultsPage;
+        var query = state.searchQuery;
+
+        const request = searchForMovie(query, page);
+
+        request.then(({ data }) => {
+            // set pages
+            commit('setResultsPages', data.pages);
+            // set page
+            commit('setResultsPage', data.page);
+            // set results
+            commit('setSearchResults', data.results);
+            commit('setIsSearchLoading', false);
+        });
+
+        request.catch((error) => {
+            // TODO:  implement error handling
+            console.log('error: ', error);
+            commit('setIsSearchLoading', false);
+        });
+
+        return request;
+    },
+
+    nextPage({ commit, state, dispatch }) {
+        var page = state.resultsPage;
+        var pages = state.resultsPages;
+
+        if (page < pages) {
+            commit('setResultsPage', page + 1);
+            dispatch('searchForMovie');
+        }
+    },
+
+    prevPage({ commit, state, dispatch }) {
+        var page = state.resultsPage;
+        var pages = state.resultsPages;
+
+        if (page > 1) {
+            commit('setResultsPage', page - 1);
+            dispatch('searchForMovie');
+        }
+    },
 }
