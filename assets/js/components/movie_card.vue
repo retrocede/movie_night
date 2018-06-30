@@ -143,6 +143,9 @@ export default {
         removed() {
             this.$emit('remove');
         },
+        added() {
+            this.$emit('add');
+        }
     },
 }
 </script>

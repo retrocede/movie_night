@@ -53,7 +53,8 @@
                     status="search"
                     :poster='`https://image.tmdb.org/t/p/w154${movie.poster_path}`'
                     :release='movie.release_date'
-                    :search-result='true' />
+                    :search-result='true'
+                    @add="addMovie(movie.id)"/>
             </div>
             <v-pagination 
                 v-if="resultsPages > 1"
@@ -84,24 +85,12 @@ export default {
             'searchForMovie',
             'nextPage',
             'prevPage',
+            'addMovie',
         ]),
 
         ...mapMutations('movies', [
             'setSearchQuery'
         ]),
-
-        addMovie(id) {
-            console.log('add movie: ', id);
-            axios.post('/api/movies', {
-                id
-            })
-            .then((response) => {
-                console.log('response: ', response.data);
-            })
-            .catch((error) => {
-                console.log('error: ', error);
-            });
-        },
     },
 }
 </script>

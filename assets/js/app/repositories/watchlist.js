@@ -16,3 +16,9 @@ export function updateMovieStatus(movie, status) {
 export function removeMovie(movie) {
     return axios.delete(`/api/movies/${ movie.id }`);
 }
+
+export function addMovie(id) {
+    return axios.post('/api/movies', {
+        id
+    });
+}

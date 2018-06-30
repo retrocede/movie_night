@@ -39,5 +39,9 @@ export default {
         const index = state.watchlist.indexOf(movie);
 
         state.watchlist.splice(index, 1);
-    }
+    },
+
+    addMovieToWatchlist(state, movie) {
+        state.watchlist.push(movie);
+    },
 }

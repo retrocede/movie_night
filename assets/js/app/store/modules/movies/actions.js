@@ -2,6 +2,7 @@ import {
     getWatchlist, 
     updateMovieStatus,
     removeMovie,
+    addMovie,
 } from '../../../repositories/watchlist';
 import { searchForMovie } from '../../../repositories/search';
 
@@ -20,6 +21,22 @@ export default {
             // TODO: implement erorr handling
             console.log('error: ', error);
             commit('setIsWatchlistLoading', false);
+        });
+
+        return request;
+    },
+
+    addMovie({ commit }, id) {
+        const request = addMovie(id);
+
+        request.then(({ data }) => {
+            console.log('movie added! ', data);
+            commit('addMovieToWatchlist', data);
+        });
+
+        request.catch((error) => {
+            // TODO: implement error handling
+            console.log('error! ', error);
         });
 
         return request;
