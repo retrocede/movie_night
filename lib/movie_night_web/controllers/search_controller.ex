@@ -28,6 +28,12 @@ defmodule MovieNightWeb.SearchEndpointController do
         end
     end
 
+    defp derive_properties(api_response) do
+        %{ "backdrop_path" => backdrop_path, "poster_path" => poster_path } = api_response
+        new_vals = %{ "backdrop" => "https://image.tmdb.org/t/p/w500#{ backdrop_path }", "poster" => "https://image.tmdb.org/t/p/w154#{ poster_path }" }
+        Map.merge api_response, new_vals
+    end
+
     def index(conn, _params) do
         conn
         |> put_status(400)

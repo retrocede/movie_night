@@ -51,15 +51,14 @@
                 :pages="resultsPages"
                 @previous="prevPage"
                 @next="nextPage"/>
-            <div class="result" v-for="result in searchResults" :key="result.id">
-                <div class="result-header">
-                    {{ result.title }}
-                    <v-button @click="addMovie(result.id)"> + </v-button>
-                </div>
-                <p class="description">
-                    {{ result.overview }}
-                </p>
-            </div>
+            <v-movie-card
+                v-for="movie in searchResults"
+                :key="movie.id"
+                :name="movie.title"
+                status="search"
+                :poster='`https://image.tmdb.org/t/p/w154${movie.poster_path}`'
+                :release='movie.release_date'
+                :search-result='true' />
             <v-pagination 
                 v-if="resultsPages > 1"
                 :currentPage="resultsPage"

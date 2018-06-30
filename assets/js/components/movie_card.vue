@@ -55,6 +55,7 @@
                 text-align: center;
             }
 
+            .add,
             .watch,
             .remove {
                 opacity: 0;
@@ -80,6 +81,7 @@
             visibility: visible;
             transition: all ease-in-out 300ms;
 
+            .add,
             .remove,
             .watch,
             .name {
@@ -96,7 +98,12 @@
             <div class="info">
                 <div class="name">{{ name }} ({{ year }})</div>
             </div>
-            <div class="controls">
+            <div class="controls" v-if='this.searchResult'>
+                <div class="add" @click='added'>
+                    <i class="material-icons md-icon-36">add_circle_outline</i>
+                </div>
+            </div>
+            <div class="controls" v-else>
                 <div class="watch" v-if="this.status !== 'watched'" @click="watched">
                     <i class="material-icons md-icon-36">play_circle_outline</i>
                 </div>
@@ -118,6 +125,7 @@ export default {
         name: { type: String, required: true },
         status: { type: String, required: true },
         release: { type: String, default: '' },
+        searchResult: { type: Boolean, default: false },
     },
     computed: {
         year() {
