@@ -44,4 +44,8 @@ export default {
     addMovieToWatchlist(state, movie) {
         state.watchlist.push(movie);
     },
+
+    setFilter(state, filter) {
+        state.filter = filter;
+    },
 }

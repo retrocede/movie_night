@@ -7,5 +7,6 @@ export default function() {
         isWatchlistLoading: false,
         resultsPage: 1,
         resultsPages: 1,
+        filter: 'unwatched',
     }
 }
